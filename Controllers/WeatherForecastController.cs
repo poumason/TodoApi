@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TodoApi.Libs;
 
 namespace TodoApi.Controllers;
 
@@ -6,21 +7,30 @@ namespace TodoApi.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
+
+    private readonly CustomLogger _logger;
+
+    public WeatherForecastController(CustomLogger logger)
+    {
+        _logger = logger;
+    }
+
     private static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    private readonly ILogger<WeatherForecastController> _logger;
+    // private readonly ILogger<WeatherForecastController> _logger;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
-    {
-        _logger = logger;
-    }
+    // public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    // {
+    //     _logger = logger;
+    // }
 
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
+        _logger.Log("========= invoking =======");
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateTime.Now.AddDays(index),
