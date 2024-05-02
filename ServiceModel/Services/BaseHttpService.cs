@@ -34,9 +34,9 @@ namespace TodoApi.ServiceModel.Services
                     var validated = await item.Validate();
                     if (validated.Item1 == false)
                     {
-                        ParseResult<TResult> result = new ParseResult<TResult>()
+                        return new ParseResult<TResult>()
                         {
-                            Error = validated.Item2
+                            Error =  validated.Item2
                         };
                     }
                 }
@@ -44,7 +44,7 @@ namespace TodoApi.ServiceModel.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                ParseResult<TResult> result = new ParseResult<TResult>()
+                return new ParseResult<TResult>()
                 {
                     Error = new ErrorData
                     {

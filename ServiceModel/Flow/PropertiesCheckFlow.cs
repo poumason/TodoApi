@@ -25,8 +25,7 @@ namespace TodoApi.ServiceModel.Flow
             //         }
             //     }
             // }
-
-            return Tuple.Create<bool, ErrorData?>(false, null);
+            return await Task.FromResult(Tuple.Create<bool, ErrorData?>(false, null));
         }
     }
 }
