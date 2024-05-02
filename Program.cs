@@ -1,3 +1,6 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Localization;
 using TodoApi.Libs;
 using TodoApi.Middlewares;
 
@@ -14,6 +17,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<CustomLogger>();
 // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-8.0
 
+builder.Services.AddLocalization();
+builder.Services.AddSingleton<LocalizationMiddleware>();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +33,16 @@ app.UseSwaggerUI();
 // }
 
 app.UseMiddleware<HeaderCheckerMiddleware>();
+app.UseMiddleware<LocalizationMiddleware>();
+
+var options = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(new CultureInfo("zh-TW"))
+};
+
+app.UseRequestLocalization(options);
+// app.UseRequestLocalization();
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
