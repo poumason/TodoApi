@@ -2,13 +2,14 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"type": "msbuild",
-			"problemMatcher": [
-				"$msCompile"
-			],
-			"group": "build",
-			"label": "Build: TodoApi.csproj",
-			"detail": "Build the TodoApi.csproj project using dotnet build"
-		}
+            "label": "build",
+            "command": "dotnet build",
+            "type": "shell",
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        }
 	]
 }

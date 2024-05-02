@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using TodoApi.Libs;
+using TodoApi.Models;
 
 namespace TodoApi.Controllers;
 
@@ -7,12 +9,13 @@ namespace TodoApi.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
-
     private readonly CustomLogger _logger;
+    private readonly IStringLocalizer<WeatherForecastController> _localizer;
 
-    public WeatherForecastController(CustomLogger logger)
+    public WeatherForecastController(CustomLogger logger, IStringLocalizer<WeatherForecastController> locaizer)
     {
         _logger = logger;
+        _localizer = locaizer;
     }
 
     private static readonly string[] Summaries = new[]
@@ -31,6 +34,13 @@ public class WeatherForecastController : ControllerBase
     public IEnumerable<WeatherForecast> Get()
     {
         _logger.Log("========= invoking =======");
+
+        var testModel = new CustomModel();
+        _logger.Log($"{testModel.GetHello()} from model");
+
+        _logger.Log(_localizer["hello"]);
+        
+        _logger.Log(_localizer["test"]);
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateTime.Now.AddDays(index),
