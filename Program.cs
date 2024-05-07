@@ -3,8 +3,13 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
 using TodoApi.Libs;
 using TodoApi.Middlewares;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add log4net
+builder.Logging.ClearProviders();
+builder.Logging.AddLog4Net();
 
 // Add services to the container.
 

@@ -36,7 +36,9 @@ public class WeatherForecastController : ControllerBase
     public IEnumerable<WeatherForecast> Get()
     {
         _logger.Log("========= invoking =======");
-        _defLogger.LogInformation("hello world");
+        _defLogger.LogInformation("info hello world");
+        _defLogger.LogCritical("cirtical hello world");
+        _defLogger.LogTrace("trace hello world");
 
         var testModel = new CustomModel(_localizer, _defLogger);
         _logger.Log($"{testModel.GetHello()} from model");
