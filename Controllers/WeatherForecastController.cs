@@ -9,12 +9,14 @@ namespace TodoApi.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
+    private readonly ILogger<WeatherForecastController> _defLogger;
     private readonly CustomLogger _logger;
     private readonly IStringLocalizer<WeatherForecastController> _localizer;
 
-    public WeatherForecastController(CustomLogger logger, IStringLocalizer<WeatherForecastController> locaizer)
+    public WeatherForecastController(CustomLogger logger, IStringLocalizer<WeatherForecastController> locaizer, ILogger<WeatherForecastController> defLogger)
     {
         _logger = logger;
+        _defLogger = defLogger;
         _localizer = locaizer;
     }
 
@@ -34,8 +36,9 @@ public class WeatherForecastController : ControllerBase
     public IEnumerable<WeatherForecast> Get()
     {
         _logger.Log("========= invoking =======");
+        _defLogger.LogInformation("hello world");
 
-        var testModel = new CustomModel(_localizer);
+        var testModel = new CustomModel(_localizer, _defLogger);
         _logger.Log($"{testModel.GetHello()} from model");
 
         _logger.Log(_localizer["hello"]);
