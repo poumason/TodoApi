@@ -35,7 +35,7 @@ public class WeatherForecastController : ControllerBase
     {
         _logger.Log("========= invoking =======");
 
-        var testModel = new CustomModel();
+        var testModel = new CustomModel(_localizer);
         _logger.Log($"{testModel.GetHello()} from model");
 
         _logger.Log(_localizer["hello"]);

@@ -4,13 +4,9 @@ namespace TodoApi.Models
 {
     public class CustomModel
     {
-        private readonly IStringLocalizer<CustomModel> _localizer;
+        private readonly IStringLocalizer _localizer;
 
-        public CustomModel()
-        {
-        }
-
-        public CustomModel(IStringLocalizer<CustomModel> localizer)
+        public CustomModel(IStringLocalizer localizer)
         {
             _localizer = localizer;
         }
