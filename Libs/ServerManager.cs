@@ -1,5 +1,3 @@
-using NLog.Extensions.Logging;
-
 namespace TodoApi.Libs
 {
     public class ServerManager
@@ -21,7 +19,8 @@ namespace TodoApi.Libs
             }
             finally
             {
-                if (mgr.getTupe() != typeof(int)) {
+                if (mgr.getTupe() != typeof(int))
+                {
                     mgr.Release();
                 }
             }
