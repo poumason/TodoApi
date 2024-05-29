@@ -1,9 +1,10 @@
 using System.Globalization;
-using Microsoft.Extensions.Caching.Redis;
+using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
 using TodoApi.Libs;
 using TodoApi.Middlewares;
+using TodoApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,12 +23,16 @@ builder.Services.AddLocalization();
 builder.Services.AddSingleton<LocalizationMiddleware>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+builder.Services.AddSingleton<IRedisHelper, RedisHelper>();
 // using Redis for catch
 builder.Services.AddStackExchangeRedisCache(o =>
 {
     o.Configuration = "localhost:6379";
     // o.InstanceName = "redis";
 });
+
+builder.Services.Configure<AppConfig>(
+    builder.Configuration.GetSection("AppConfig"));
 
 var app = builder.Build();
 
