@@ -19,6 +19,14 @@ namespace TodoApi.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
+            string testKey = "hello";
+            var data = await _cache.GetAsync(testKey);
+            if (data == null) {
+                await _cache.SetAsync(testKey, Encoding.UTF8.GetBytes("hello world"));
+                await _cache.RefreshAsync(testKey);
+                data = await _cache.GetAsync(testKey);
+            }
+
             await _cache.SetAsync("header", Encoding.UTF8.GetBytes("hello"));
             // 檢查請求中是否存在 "MyHeader" 標頭
             // if (!context.Request.Headers.ContainsKey("MyHeader"))
@@ -29,8 +37,8 @@ namespace TodoApi.Middlewares
             // }
             // else
             // {
-                // 如果標頭存在，繼續執行下一個 middleware
-                await _next(context);
+            // 如果標頭存在，繼續執行下一個 middleware
+            await _next(context);
             // }
         }
     }

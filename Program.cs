@@ -26,7 +26,7 @@ builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactor
 builder.Services.AddStackExchangeRedisCache(o =>
 {
     o.Configuration = "localhost:6379";
-    o.InstanceName = "redis";
+    // o.InstanceName = "redis";
 });
 
 var app = builder.Build();
