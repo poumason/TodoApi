@@ -6,7 +6,7 @@ using TodoApi.Models;
 namespace TodoApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 public class WeatherForecastController : ControllerBase
 {
     private readonly ILogger<WeatherForecastController> _defLogger;
@@ -52,4 +52,14 @@ public class WeatherForecastController : ControllerBase
         })
         .ToArray();
     }
+
+    [HttpPost]
+    public Employee ConvertData(Student student) {
+        var sBaseInfo = student as BaseInfo;
+        var employee = new Employee();
+
+        employee.CopyProperiesFromBaseClass(sBaseInfo);
+
+        return employee;
+    } 
 }
