@@ -28,7 +28,7 @@ namespace TodoApi.Middlewares
         private async Task<string> FormatRequest(HttpRequest request)
         {
             var body = request.Body;
-            request.EnableRewind();
+            // request.EnableRewind();
 
             var buffer = new byte[Convert.ToInt32(request.ContentLength)];
             await request.Body.ReadAsync(buffer, 0, buffer.Length);

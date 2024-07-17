@@ -1,13 +1,16 @@
 using System.Globalization;
+using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
 using TodoApi.Libs;
 using TodoApi.Middlewares;
+using TodoApi.Models;
 using NLog;
 using NLog.Web;
 
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Debug("init main");
+
 try
 {
     var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +30,16 @@ try
     builder.Services.AddSingleton<LocalizationMiddleware>();
     builder.Services.AddDistributedMemoryCache();
     builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+    builder.Services.AddSingleton<IRedisHelper, RedisHelper>();
+    // using Redis for catch
+    builder.Services.AddStackExchangeRedisCache(o =>
+    {
+        o.Configuration = "redis:6379";
+        // o.InstanceName = "redis";
+    });
+
+    builder.Services.Configure<AppConfig>(
+        builder.Configuration.GetSection("AppConfig"));
 
     // NLog: Setup NLog for Dependency injection
     builder.Logging.ClearProviders();
@@ -44,7 +57,7 @@ try
 
     app.UseMiddleware<HeaderCheckerMiddleware>();
     app.UseMiddleware<LocalizationMiddleware>();
-    app.UseMiddleware<LogMiddleware>();
+
 
     var options = new RequestLocalizationOptions
     {
@@ -62,6 +75,7 @@ try
     app.MapControllers();
 
     app.Run();
+
 }
 catch (Exception ex)
 {
