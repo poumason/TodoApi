@@ -22,6 +22,8 @@ public class HealthController : ControllerBase
     [HttpGet]
     public async Task<string> Get(string key)
     {
+        var x = NLog.LogManager.GetCurrentClassLogger();
+        _logger.Log(LogLevel.Information, "get data");
         return await _redis.Get(key);
     }
 

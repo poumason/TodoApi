@@ -21,7 +21,7 @@ namespace TodoApi.Libs
         {
             _config = config.Value;
             _logger = logger;
-            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(_config.RedisHost);
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost:6379");
             _db = redis.GetDatabase();
         }
 

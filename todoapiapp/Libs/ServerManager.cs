@@ -1,7 +1,17 @@
+using Microsoft.Extensions.Logging;
+
 namespace TodoApi.Libs
 {
     public class ServerManager
     {
+        private readonly ILogger _logger;
+
+        public ServerManager(ILogger logger)
+        {
+            _logger = logger;
+            
+            var x = NLog.LogManager.GetCurrentClassLogger();
+        }
 
         public void Do(bool status)
         {
@@ -19,7 +29,7 @@ namespace TodoApi.Libs
             }
             finally
             {
-                if (mgr.getTupe() != typeof(int))
+                if (mgr.GetType() != typeof(int))
                 {
                     mgr.Release();
                 }
@@ -42,11 +52,13 @@ namespace TodoApi.Libs
 
         private IMMServer getMMInstance()
         {
+            _logger.Log(LogLevel.Information, "getMMInstance");
             return new MMServer();
         }
 
         private IT01Server getT01Instance()
         {
+            _logger.Log(LogLevel.Information, "getT01Instance");
             return new T01Server();
         }
     }

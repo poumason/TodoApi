@@ -43,9 +43,9 @@ public class WeatherForecastController : ControllerBase
         _logger.Log($"{testModel.GetHello()} from model");
 
         _logger.Log(_localizer["hello"]);
-        
+
         _logger.Log(_localizer["test"]);
-        var data =  Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        var data = Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateTime.Now.AddDays(index),
             TemperatureC = Random.Shared.Next(-20, 55),
@@ -59,12 +59,20 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpPost]
-    public Employee ConvertData(Student student) {
+    public Employee ConvertData(Student student)
+    {
         var sBaseInfo = student as BaseInfo;
         var employee = new Employee();
 
         employee.CopyProperiesFromBaseClass(sBaseInfo);
 
         return employee;
-    } 
+    }
+
+    [HttpGet]
+    public void GetServer()
+    {
+        var server = new ServerManager(_defLogger);
+        server.Do(true);
+    }
 }

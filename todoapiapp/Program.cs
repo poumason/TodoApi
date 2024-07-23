@@ -34,7 +34,7 @@ try
     // using Redis for catch
     builder.Services.AddStackExchangeRedisCache(o =>
     {
-        o.Configuration = "redis:6379";
+        o.Configuration = "localhost:6379";
         // o.InstanceName = "redis";
     });
 
