@@ -9,8 +9,8 @@ namespace TodoApi.Libs
         public ServerManager(ILogger logger)
         {
             _logger = logger;
-            
-            var x = NLog.LogManager.GetCurrentClassLogger();
+            _logger.LogInformation("tx-transcation {0}", "hello");
+            // var x = NLog.LogManager.GetCurrentClassLogger();
         }
 
         public void Do(bool status)
