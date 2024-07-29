@@ -5,16 +5,15 @@ WORKDIR /source
 # copy csproj and restore as distinct layers
 COPY *.sln .
 COPY ./todoapiapp/ ./todoapiapp
-RUN ls ./todoapiapp/
 RUN dotnet restore
 
 
 WORKDIR /source/todoapiapp
-RUN dotnet publish -c release -o /app --no-restore
+RUN dotnet publish -c debug -o /app --no-restore
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
-RUN ls /app
-COPY --from=build /app ./
+COPY --from=build /app /app
 ENTRYPOINT ["dotnet", "TodoApi.dll"]
+# CMD ["bash"]

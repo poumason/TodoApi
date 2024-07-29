@@ -34,6 +34,7 @@ namespace TodoApi.Libs
                     mgr.Release();
                 }
             }
+            _logger.LogInformation("tx-transcation {0}", DateTime.Now);
         }
 
         public T ChangeServer<T>()

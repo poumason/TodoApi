@@ -55,7 +55,7 @@ try
     app.UseSwaggerUI();
     // }
 
-    app.UseMiddleware<HeaderCheckerMiddleware>();
+    // app.UseMiddleware<HeaderCheckerMiddleware>();
     app.UseMiddleware<LocalizationMiddleware>();
 
 
